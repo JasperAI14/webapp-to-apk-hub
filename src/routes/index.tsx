@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { fetchApps } from "@/lib/store";
 import { AppCard, AppCardSkeleton } from "@/components/AppCard";
-import { ArrowRight, Gamepad2, LayoutGrid, Film } from "lucide-react";
+import { ArrowRight, Gamepad2, LayoutGrid, Sparkles, Crown } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
