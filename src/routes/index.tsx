@@ -25,7 +25,7 @@ function Section({
   title: string;
   to: "/apps" | "/games";
   icon: typeof LayoutGrid;
-  category: "app" | "game" | "ai_video";
+  category: "app" | "game";
 }) {
   const { data, isLoading } = useQuery({
     queryKey: ["apps", category],
