@@ -19,6 +19,7 @@ import { Route as AuthenticatedPremiumRouteImport } from './routes/_authenticate
 import { Route as AuthenticatedPaymentCallbackRouteImport } from './routes/_authenticated/payment-callback'
 import { Route as AuthenticatedLibraryRouteImport } from './routes/_authenticated/library'
 import { Route as AuthenticatedAiImageRouteImport } from './routes/_authenticated/ai-image'
+import { Route as AuthenticatedAiGalleryRouteImport } from './routes/_authenticated/ai-gallery'
 import { Route as ApiPublicPaystackWebhookRouteImport } from './routes/api/public/paystack-webhook'
 
 const GamesRoute = GamesRouteImport.update({
@@ -71,6 +72,11 @@ const AuthenticatedAiImageRoute = AuthenticatedAiImageRouteImport.update({
   path: '/ai-image',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedAiGalleryRoute = AuthenticatedAiGalleryRouteImport.update({
+  id: '/ai-gallery',
+  path: '/ai-gallery',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const ApiPublicPaystackWebhookRoute =
   ApiPublicPaystackWebhookRouteImport.update({
     id: '/api/public/paystack-webhook',
@@ -83,6 +89,7 @@ export interface FileRoutesByFullPath {
   '/apps': typeof AppsRoute
   '/auth': typeof AuthRoute
   '/games': typeof GamesRoute
+  '/ai-gallery': typeof AuthenticatedAiGalleryRoute
   '/ai-image': typeof AuthenticatedAiImageRoute
   '/library': typeof AuthenticatedLibraryRoute
   '/payment-callback': typeof AuthenticatedPaymentCallbackRoute
@@ -95,6 +102,7 @@ export interface FileRoutesByTo {
   '/apps': typeof AppsRoute
   '/auth': typeof AuthRoute
   '/games': typeof GamesRoute
+  '/ai-gallery': typeof AuthenticatedAiGalleryRoute
   '/ai-image': typeof AuthenticatedAiImageRoute
   '/library': typeof AuthenticatedLibraryRoute
   '/payment-callback': typeof AuthenticatedPaymentCallbackRoute
@@ -109,6 +117,7 @@ export interface FileRoutesById {
   '/apps': typeof AppsRoute
   '/auth': typeof AuthRoute
   '/games': typeof GamesRoute
+  '/_authenticated/ai-gallery': typeof AuthenticatedAiGalleryRoute
   '/_authenticated/ai-image': typeof AuthenticatedAiImageRoute
   '/_authenticated/library': typeof AuthenticatedLibraryRoute
   '/_authenticated/payment-callback': typeof AuthenticatedPaymentCallbackRoute
@@ -123,6 +132,7 @@ export interface FileRouteTypes {
     | '/apps'
     | '/auth'
     | '/games'
+    | '/ai-gallery'
     | '/ai-image'
     | '/library'
     | '/payment-callback'
@@ -135,6 +145,7 @@ export interface FileRouteTypes {
     | '/apps'
     | '/auth'
     | '/games'
+    | '/ai-gallery'
     | '/ai-image'
     | '/library'
     | '/payment-callback'
@@ -148,6 +159,7 @@ export interface FileRouteTypes {
     | '/apps'
     | '/auth'
     | '/games'
+    | '/_authenticated/ai-gallery'
     | '/_authenticated/ai-image'
     | '/_authenticated/library'
     | '/_authenticated/payment-callback'
@@ -238,6 +250,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAiImageRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/ai-gallery': {
+      id: '/_authenticated/ai-gallery'
+      path: '/ai-gallery'
+      fullPath: '/ai-gallery'
+      preLoaderRoute: typeof AuthenticatedAiGalleryRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/api/public/paystack-webhook': {
       id: '/api/public/paystack-webhook'
       path: '/api/public/paystack-webhook'
@@ -249,6 +268,7 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAiGalleryRoute: typeof AuthenticatedAiGalleryRoute
   AuthenticatedAiImageRoute: typeof AuthenticatedAiImageRoute
   AuthenticatedLibraryRoute: typeof AuthenticatedLibraryRoute
   AuthenticatedPaymentCallbackRoute: typeof AuthenticatedPaymentCallbackRoute
@@ -256,6 +276,7 @@ interface AuthenticatedRouteRouteChildren {
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAiGalleryRoute: AuthenticatedAiGalleryRoute,
   AuthenticatedAiImageRoute: AuthenticatedAiImageRoute,
   AuthenticatedLibraryRoute: AuthenticatedLibraryRoute,
   AuthenticatedPaymentCallbackRoute: AuthenticatedPaymentCallbackRoute,

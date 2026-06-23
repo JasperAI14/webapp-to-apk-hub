@@ -1,5 +1,5 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { Sparkles, LogOut, LibraryBig, User as UserIcon, Crown, Image as ImageIcon } from "lucide-react";
+import { Sparkles, LogOut, LibraryBig, User as UserIcon, Crown, Image as ImageIcon, Images } from "lucide-react";
 import { useAuth } from "@/lib/auth";
 import { Button } from "@/components/ui/button";
 import {
@@ -16,6 +16,7 @@ const navItems = [
   { to: "/apps", label: "Apps" },
   { to: "/games", label: "Games" },
   { to: "/ai-image", label: "Create AI Image" },
+  { to: "/ai-gallery", label: "AI Gallery" },
 ];
 
 export function Header() {
@@ -65,7 +66,10 @@ export function Header() {
                   <Link to="/library"><LibraryBig className="mr-2 h-4 w-4" /> My library</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
-                  <Link to="/ai-image"><ImageIcon className="mr-2 h-4 w-4" /> AI Image</Link>
+                  <Link to="/ai-image"><ImageIcon className="mr-2 h-4 w-4" /> Create AI Image</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to="/ai-gallery"><Images className="mr-2 h-4 w-4" /> AI Gallery</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <Link to="/premium"><Crown className="mr-2 h-4 w-4" /> Go Premium</Link>

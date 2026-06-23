@@ -14,6 +14,33 @@ export type Database = {
   }
   public: {
     Tables: {
+      ai_images: {
+        Row: {
+          created_at: string
+          id: string
+          image_url: string
+          prompt: string
+          storage_path: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          image_url: string
+          prompt: string
+          storage_path: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          image_url?: string
+          prompt?: string
+          storage_path?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       apps: {
         Row: {
           category: Database["public"]["Enums"]["app_category"]
@@ -143,6 +170,7 @@ export type Database = {
           display_name: string | null
           id: string
           is_premium: boolean
+          premium_expires_at: string | null
           premium_since: string | null
         }
         Insert: {
@@ -151,6 +179,7 @@ export type Database = {
           display_name?: string | null
           id: string
           is_premium?: boolean
+          premium_expires_at?: string | null
           premium_since?: string | null
         }
         Update: {
@@ -159,9 +188,69 @@ export type Database = {
           display_name?: string | null
           id?: string
           is_premium?: boolean
+          premium_expires_at?: string | null
           premium_since?: string | null
         }
         Relationships: []
+      }
+      promo_codes: {
+        Row: {
+          active: boolean
+          code: string
+          created_at: string
+          grant_type: string
+          max_uses: number | null
+          trial_days: number | null
+          uses: number
+        }
+        Insert: {
+          active?: boolean
+          code: string
+          created_at?: string
+          grant_type: string
+          max_uses?: number | null
+          trial_days?: number | null
+          uses?: number
+        }
+        Update: {
+          active?: boolean
+          code?: string
+          created_at?: string
+          grant_type?: string
+          max_uses?: number | null
+          trial_days?: number | null
+          uses?: number
+        }
+        Relationships: []
+      }
+      promo_redemptions: {
+        Row: {
+          code: string
+          id: string
+          redeemed_at: string
+          user_id: string
+        }
+        Insert: {
+          code: string
+          id?: string
+          redeemed_at?: string
+          user_id: string
+        }
+        Update: {
+          code?: string
+          id?: string
+          redeemed_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "promo_redemptions_code_fkey"
+            columns: ["code"]
+            isOneToOne: false
+            referencedRelation: "promo_codes"
+            referencedColumns: ["code"]
+          },
+        ]
       }
       reviews: {
         Row: {
@@ -237,6 +326,7 @@ export type Database = {
         }
         Returns: boolean
       }
+      is_user_premium: { Args: { _user_id: string }; Returns: boolean }
     }
     Enums: {
       app_category: "app" | "game" | "ai_video"
