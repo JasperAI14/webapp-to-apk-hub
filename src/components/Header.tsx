@@ -66,7 +66,10 @@ export function Header() {
                   <Link to="/library"><LibraryBig className="mr-2 h-4 w-4" /> My library</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
-                  <Link to="/ai-image"><ImageIcon className="mr-2 h-4 w-4" /> AI Image</Link>
+                  <Link to="/ai-image"><ImageIcon className="mr-2 h-4 w-4" /> Create AI Image</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to="/ai-gallery"><Images className="mr-2 h-4 w-4" /> AI Gallery</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <Link to="/premium"><Crown className="mr-2 h-4 w-4" /> Go Premium</Link>
