@@ -18,6 +18,7 @@ import { Route as AppsRouteImport } from './routes/apps'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppSlugRouteImport } from './routes/app.$slug'
+import { Route as AuthenticatedRedeemRouteImport } from './routes/_authenticated/redeem'
 import { Route as AuthenticatedPremiumRouteImport } from './routes/_authenticated/premium'
 import { Route as AuthenticatedPaymentCallbackRouteImport } from './routes/_authenticated/payment-callback'
 import { Route as AuthenticatedLibraryRouteImport } from './routes/_authenticated/library'
@@ -72,6 +73,11 @@ const AppSlugRoute = AppSlugRouteImport.update({
   id: '/app/$slug',
   path: '/app/$slug',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRedeemRoute = AuthenticatedRedeemRouteImport.update({
+  id: '/redeem',
+  path: '/redeem',
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedPremiumRoute = AuthenticatedPremiumRouteImport.update({
   id: '/premium',
@@ -143,6 +149,7 @@ export interface FileRoutesByFullPath {
   '/library': typeof AuthenticatedLibraryRoute
   '/payment-callback': typeof AuthenticatedPaymentCallbackRoute
   '/premium': typeof AuthenticatedPremiumRoute
+  '/redeem': typeof AuthenticatedRedeemRoute
   '/app/$slug': typeof AppSlugRoute
   '/developer/new': typeof AuthenticatedDeveloperNewRoute
   '/api/public/paystack-webhook': typeof ApiPublicPaystackWebhookRoute
@@ -163,6 +170,7 @@ export interface FileRoutesByTo {
   '/library': typeof AuthenticatedLibraryRoute
   '/payment-callback': typeof AuthenticatedPaymentCallbackRoute
   '/premium': typeof AuthenticatedPremiumRoute
+  '/redeem': typeof AuthenticatedRedeemRoute
   '/app/$slug': typeof AppSlugRoute
   '/developer/new': typeof AuthenticatedDeveloperNewRoute
   '/api/public/paystack-webhook': typeof ApiPublicPaystackWebhookRoute
@@ -185,6 +193,7 @@ export interface FileRoutesById {
   '/_authenticated/library': typeof AuthenticatedLibraryRoute
   '/_authenticated/payment-callback': typeof AuthenticatedPaymentCallbackRoute
   '/_authenticated/premium': typeof AuthenticatedPremiumRoute
+  '/_authenticated/redeem': typeof AuthenticatedRedeemRoute
   '/app/$slug': typeof AppSlugRoute
   '/_authenticated/developer/new': typeof AuthenticatedDeveloperNewRoute
   '/api/public/paystack-webhook': typeof ApiPublicPaystackWebhookRoute
@@ -207,6 +216,7 @@ export interface FileRouteTypes {
     | '/library'
     | '/payment-callback'
     | '/premium'
+    | '/redeem'
     | '/app/$slug'
     | '/developer/new'
     | '/api/public/paystack-webhook'
@@ -227,6 +237,7 @@ export interface FileRouteTypes {
     | '/library'
     | '/payment-callback'
     | '/premium'
+    | '/redeem'
     | '/app/$slug'
     | '/developer/new'
     | '/api/public/paystack-webhook'
@@ -248,6 +259,7 @@ export interface FileRouteTypes {
     | '/_authenticated/library'
     | '/_authenticated/payment-callback'
     | '/_authenticated/premium'
+    | '/_authenticated/redeem'
     | '/app/$slug'
     | '/_authenticated/developer/new'
     | '/api/public/paystack-webhook'
@@ -333,6 +345,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/redeem': {
+      id: '/_authenticated/redeem'
+      path: '/redeem'
+      fullPath: '/redeem'
+      preLoaderRoute: typeof AuthenticatedRedeemRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/premium': {
       id: '/_authenticated/premium'
       path: '/premium'
@@ -413,6 +432,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedLibraryRoute: typeof AuthenticatedLibraryRoute
   AuthenticatedPaymentCallbackRoute: typeof AuthenticatedPaymentCallbackRoute
   AuthenticatedPremiumRoute: typeof AuthenticatedPremiumRoute
+  AuthenticatedRedeemRoute: typeof AuthenticatedRedeemRoute
   AuthenticatedDeveloperNewRoute: typeof AuthenticatedDeveloperNewRoute
   AuthenticatedDeveloperIndexRoute: typeof AuthenticatedDeveloperIndexRoute
   AuthenticatedDeveloperAppIdEditRoute: typeof AuthenticatedDeveloperAppIdEditRoute
@@ -425,6 +445,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedLibraryRoute: AuthenticatedLibraryRoute,
   AuthenticatedPaymentCallbackRoute: AuthenticatedPaymentCallbackRoute,
   AuthenticatedPremiumRoute: AuthenticatedPremiumRoute,
+  AuthenticatedRedeemRoute: AuthenticatedRedeemRoute,
   AuthenticatedDeveloperNewRoute: AuthenticatedDeveloperNewRoute,
   AuthenticatedDeveloperIndexRoute: AuthenticatedDeveloperIndexRoute,
   AuthenticatedDeveloperAppIdEditRoute: AuthenticatedDeveloperAppIdEditRoute,
