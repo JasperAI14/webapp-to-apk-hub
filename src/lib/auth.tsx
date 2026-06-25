@@ -16,32 +16,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Set up the listener for auth state changes
-    const { data: subscription } = supabase.auth.onAuthStateChange((_event, newSession) => {
-      console.log("[Auth] State changed:", _event, "Session:", newSession ? "present" : "null");
-      setSession(newSession);
+    const { data: sub } = supabase.auth.onAuthStateChange((_e, s) => {
+      setSession(s);
       setLoading(false);
     });
-
-    // Also fetch current session on mount
-    const fetchSession = async () => {
-      try {
-        const { data } = await supabase.auth.getSession();
-        console.log("[Auth] Initial session fetch:", data.session ? "found" : "not found");
-        setSession(data.session);
-      } catch (err) {
-        console.error("[Auth] Failed to fetch session:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchSession();
-
-    // Return cleanup function
-    return () => {
-      subscription?.subscription.unsubscribe();
-    };
+    supabase.auth.getSession().then(({ data }) => {
+      setSession(data.session);
+      setLoading(false);
+    });
+    return () => sub.subscription.unsubscribe();
   }, []);
 
   return (

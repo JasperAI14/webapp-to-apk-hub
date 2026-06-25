@@ -73,6 +73,17 @@ export const verifyPremiumPayment = createServerFn({ method: "POST" })
     const secret = process.env.PAYSTACK_SECRET_KEY;
     if (!secret) throw new Error("Payments are not configured.");
 
+    // SECURITY: confirm the reference belongs to the caller before calling Paystack
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data: ownRow } = await supabaseAdmin
+      .from("payments")
+      .select("user_id")
+      .eq("reference", data.reference)
+      .maybeSingle();
+    if (!ownRow || ownRow.user_id !== context.userId) {
+      throw new Error("Payment reference not found for this account");
+    }
+
     const res = await fetch(
       `https://api.paystack.co/transaction/verify/${encodeURIComponent(data.reference)}`,
       { headers: { Authorization: `Bearer ${secret}` } },
@@ -87,7 +98,7 @@ export const verifyPremiumPayment = createServerFn({ method: "POST" })
     }
 
     const success = body.data.status === "success";
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+
 
     await supabaseAdmin
       .from("payments")
