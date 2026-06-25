@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TrendingRouteImport } from './routes/trending'
 import { Route as GamesRouteImport } from './routes/games'
+import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CategoriesRouteImport } from './routes/categories'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AppsRouteImport } from './routes/apps'
@@ -36,6 +37,11 @@ const TrendingRoute = TrendingRouteImport.update({
 const GamesRoute = GamesRouteImport.update({
   id: '/games',
   path: '/games',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CategoriesRoute = CategoriesRouteImport.update({
@@ -128,6 +134,7 @@ export interface FileRoutesByFullPath {
   '/apps': typeof AppsRoute
   '/auth': typeof AuthRoute
   '/categories': typeof CategoriesRoute
+  '/contact': typeof ContactRoute
   '/games': typeof GamesRoute
   '/trending': typeof TrendingRoute
   '/ai-gallery': typeof AuthenticatedAiGalleryRoute
@@ -147,6 +154,7 @@ export interface FileRoutesByTo {
   '/apps': typeof AppsRoute
   '/auth': typeof AuthRoute
   '/categories': typeof CategoriesRoute
+  '/contact': typeof ContactRoute
   '/games': typeof GamesRoute
   '/trending': typeof TrendingRoute
   '/ai-gallery': typeof AuthenticatedAiGalleryRoute
@@ -168,6 +176,7 @@ export interface FileRoutesById {
   '/apps': typeof AppsRoute
   '/auth': typeof AuthRoute
   '/categories': typeof CategoriesRoute
+  '/contact': typeof ContactRoute
   '/games': typeof GamesRoute
   '/trending': typeof TrendingRoute
   '/_authenticated/ai-gallery': typeof AuthenticatedAiGalleryRoute
@@ -189,6 +198,7 @@ export interface FileRouteTypes {
     | '/apps'
     | '/auth'
     | '/categories'
+    | '/contact'
     | '/games'
     | '/trending'
     | '/ai-gallery'
@@ -208,6 +218,7 @@ export interface FileRouteTypes {
     | '/apps'
     | '/auth'
     | '/categories'
+    | '/contact'
     | '/games'
     | '/trending'
     | '/ai-gallery'
@@ -228,6 +239,7 @@ export interface FileRouteTypes {
     | '/apps'
     | '/auth'
     | '/categories'
+    | '/contact'
     | '/games'
     | '/trending'
     | '/_authenticated/ai-gallery'
@@ -249,6 +261,7 @@ export interface RootRouteChildren {
   AppsRoute: typeof AppsRoute
   AuthRoute: typeof AuthRoute
   CategoriesRoute: typeof CategoriesRoute
+  ContactRoute: typeof ContactRoute
   GamesRoute: typeof GamesRoute
   TrendingRoute: typeof TrendingRoute
   AppSlugRoute: typeof AppSlugRoute
@@ -269,6 +282,13 @@ declare module '@tanstack/react-router' {
       path: '/games'
       fullPath: '/games'
       preLoaderRoute: typeof GamesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/categories': {
@@ -419,6 +439,7 @@ const rootRouteChildren: RootRouteChildren = {
   AppsRoute: AppsRoute,
   AuthRoute: AuthRoute,
   CategoriesRoute: CategoriesRoute,
+  ContactRoute: ContactRoute,
   GamesRoute: GamesRoute,
   TrendingRoute: TrendingRoute,
   AppSlugRoute: AppSlugRoute,
