@@ -13,6 +13,7 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { AuthProvider } from "@/lib/auth";
 import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
 import { Toaster } from "@/components/ui/sonner";
 
 function NotFoundComponent() {
@@ -95,6 +96,7 @@ function RootComponent() {
         <div className="flex min-h-screen flex-col">
           <Header />
           <main className="flex-1"><Outlet /></main>
+          <Footer />
         </div>
         <Toaster position="bottom-center" />
       </AuthProvider>
