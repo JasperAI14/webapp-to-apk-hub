@@ -98,7 +98,7 @@ export const verifyPremiumPayment = createServerFn({ method: "POST" })
     }
 
     const success = body.data.status === "success";
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+
 
     await supabaseAdmin
       .from("payments")
